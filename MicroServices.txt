@@ -1,0 +1,149 @@
+Micro-services - 
+* An architectural style
+* Decomposing single system into a suite of small services each running as independent processes and 
+communicationg via open protocols
+* Fine-grained SOA
+
+* Single application as a suite of smaller apps (Not monolithic)
+* seperately written, deployed, scaled
+* Services are independently upgradeable
+SOA - about integrating various enterprise applications
+MicroServices - Decompose single app to smaller services
+
+Monolithic disadvantages -
+1. Commitment to single language/Technology stack forever - cannot try new techs for specific module/units
+2. Modularity is based on a specific language
+3. Entire app in single language
+4. Single team/developer cannot digest a large code-base
+5. Larger teams are hard to manage
+
+Micro-services adv
+1. Several components can use different tech stack based on requirement 
+2. All components sit behind API Gateway which provide best interface for the client in question
+3. Services are independent apps
+4. Changes scoped only to the affected service
+5. Multiple components can use a different language
+6. Communication over common light-weight protocol like HTTP, TCP, UDP etc
+7. Payloads like JSON etc
+8. Each business function as a service vs in monolithic - each func as a component
+9. Each service exposes API's / Rest endpoints
+10. Easy to modify, learn, smaller teams
+11. Independent deployments, management
+12. Change cycle decoupled
+
+Micro-services disadvantages -
+1.Services may be unavailable while remote calls - not a problem in monolithic
+2. Design for failure
+3. Remote calls more costlier than in-process calls - more latency etc
+4. More monitoring needed.
+5. Pain if a change has to go to multiple spans of the service
+6. Refactoring becomes pain in case of wrond designs etc
+
+How to break a monolith to micro services ?
+1. Noun-based (customer , product etc)
+2. Verb-based (Search ,checkout , pay)
+3. Single Responsibility principle
+4. Bounded Context
+
+How small is Micro - An individual / a small team should be able to maintain
+
+Smart services and dumb integration technology - MicroServices
+Dumb services and smart integration technology - SOA
+
+Spring Cloud - 
+===================================================================================
+Cloud apps are usually distributed apps
+Provides libraries to apply common patterns needed in distributed applications like ,
+1. Distributed Config management
+2. Load balancing
+3. Ser to service calls
+4. Circuit breakers
+5. Routing 
+
+* Spring team made netflix technologies easily consumable, 
+* Spring cloud projects are mostly cloud based
+* Spring Cloud - Address common patterns in distributed apps - Enables easy use of netflix projects
+
+Spring Cloud Config - 
+App Configuration Options - 
+1. Package Config files with application 
+2. Storing conf files in a shared location - problematic in a cloud
+3. Use ENV variables - problem when there are many env variables
+4. Using cloud-vendor specific solution - app tightly coupled with that vendor
+
+Desired Solution for Configuration - 
+1. Platform/Cloud independent solution
+2. Centralized
+3. Dynamic - update settings while app is running
+4. Controllable - Same SCM choices we use with software
+5. Passive - Apps/ services should do most of the work when it comes up - like saying that I'm up and this is my URL  - spring cloud comes in 
+
+Spring Cloud Config - Helps in app configuration
+Spring Cloud Bus - Provides simple way to notify clients to config changes/ push dynamic changes
+Spring Cloud Netflix Eureka - Service Discovery - Allow apps to register themselves as clients
+
+Spring Cloud Config Server
+----------------------------------------------------------------
+Is itself an App that serves configuration information to other apps usually over HTTP
+* Client apps connect to config server for config information
+* Configuration information can be stored in any SCM like GIT , flies , DB etc
+
+Environment Respositry - Where you store config files - It's an interface
+Obtain settings from server - http://<server>:<port>/spring.application.name/<profile>
+
+There is an application called lucky-word and profile is set to north america 
+ - Spring client makes an http request for /lucky-word/northamerica 
+ 
+File search would happen based on the appName and profile type - all file names with default will be ignored
+ex - file with name like lucky-word-northamerica.yml(1st precedence), lucky-word.yml(2nd precedence), lucky-word.propeties(3rd precedence) would be selected
+                 
+* Spring cloud chooses yml files over properties
+* Config file should be named after the application
+
+.yml(.yaml) vs .properties
+=========================================================================
+Yaml -
+------------------------------------------------------
+--- <Starts with three dashes>
+spring:
+	config:
+		name: aaa
+		location: bbb
+    profiles:
+		active: ccc
+	    include: ddd
+
+Equivalent properties - 
+-------------------------------------------------------
+spring.config.name=aaa
+spring.config.location=bbb
+spring.profiles.active=ccc
+spring.profiles.include=ddd
+
+Advantages of Yaml over properties - 
+1. Multiple set of properties can be combined in one file wuth 3 dash separates, which otherwise would need 12 separate .properties file
+
+How properties work in spring - 
+* Spring apps have an Environment object/ an interface that hold different PropertySources which are populated from different 
+sources like environment properties, 
+system properties, developer defined property files etc
+* All spring cloud config library does is, It adds another PropertySource that connects to a config server over http and gets 
+config information to populate newly added PropertySource 
+result - property defined by server became part of client app.
+
+For Non-Java/ non-spring - 
+Consume a rest service exposed by spring config server using any other language
+http://<server>:<port>/<spring.application.name>/<profile>
+
+What if configuration server is down - 
+1. Several instances are run behind a load balancer - failing one should not matter
+2. Client application can control policy of how to handle missing config server 
+	- spring.cloud.config.failFast=true (default = false)
+
+* Settings received from config server override local settings, local settings can be used as a fallback strategy
+>>> netstat -nap | grep <port-number> -----> To see PID of process listening at a specific port number
+>>> lsof -i :<port number>
+
+Service Discovery -
+==================================================================================================
+

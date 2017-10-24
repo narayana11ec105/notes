@@ -1,0 +1,12 @@
+* Docker - one implementation of container based virtualization technologies
+
+* Pre-virtualization -> 
+	Hard to migrate from one server provider to the other(Ex., from IBM to Dell servers)
+	Less amount resources will be used leading to wastage
+
+* Hypervisor based virtualization - 
+	One physical server, multiple OS - providers include vmWare, Virtual Box
+	An hypervisor layer is introduced between physical HW and Guest OS
+
+* Now companies are installing VM's on cloud like AWS 
+
