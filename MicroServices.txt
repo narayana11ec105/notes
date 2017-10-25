@@ -145,5 +145,94 @@ What if configuration server is down -
 >>> lsof -i :<port number>
 
 Service Discovery -
-==================================================================================================
+=================================
+What is it?? Example - A chat client
+* A client(When you online in a chat client) registers itself with the server that it has come online
+* Server provides the client with the list of all clients online
+* You as client has been discovered by other clients and you discover other clients, due to active registering
 
+In microServices there are many interservice calls and its very challenging to manually do it
+
+How does one service know all other services that are there ?? -- Service Discovery
+* It provides single look-up service
+  - Clients register themselves and discover other registrants
+* Several solutions like Eureka, Etcd, Zookeeper, SmartStack etc
+
+* Eureka for service Discovery - provided by Netflix
+	- Eureka provides a lookup server
+	- Made highly by running multiple copies(these copies interact bewteen them)
+	- Client services register with Eureka, sends some metadat like host, port, health check URL etc.
+	- Clients send heartBeats to Eureka server, Eureka removes clients without heartbeats
+* Add spring-cloud-starter-eureka-server to dependency
+* Include @EnableEurekaServer annotation
+* Eureka servers communicate within them, shares state(Synchronize with other servers)
+* Ideally run in different regions/ server racks
+* Each server should know the URL to the others(config server provides this)
+
+@EnableDiscoverClient - 
+	- Automatically register clients with the server
+	- registers app name, host, port
+	- Use DiscoveryClient to locate other services/clients
+* Eureka server maintains all registrations in memory, doesnt persist that anywhere
+* Eureka should have peers in production 
+* Config First Bootstrap - use config server to locate eureka server --> App bootstraps with Config server first
+* Eureka First Bootstrap - Use eureka to expose config server as another client
+ Some blogs - 
+ -------------------
+ 1. http://techblog.netflix.com/2012/09/eureka.html
+ 2. https://spring.io/blog/2015/01/20/microservice-registration-and-discovery-with-spring-cloud-and-netflix-s-eureka
+
+Spring Cloud Ribbon - client side load balancing
+========================================================================================
+SW loadbalancers - Apache, Nginx
+Client-side load balancer is a part of client software , it selects which server to call
+There can be multiple server side Load Balancers - In case one of the LB fails, client will know that it can route reqs to other LB'saying
+
+Caching - service will not make the remote call as it has response received from previous similar calls
+Batching - multiple reqs will be grouped into one req - for efficiency
+
+* Ribbon - developed by Netflix
+* Spring cloud provided wasy to use wrapper around ribbon
+* List of servers - what servers are there for different clients(services) - this is usually populated via (ServiceDiscovery) Eureka
+* Spring Cloud default - use Eureka when present on classpath
+
+Example - 
+	stores:
+		ribbon:
+			listOfServers: store1.com, store2.com
+		products:
+			listOfServers: prodServer1.com, prodServer2.com
+			
+* Ribbon filters servers based on some criteria
+	-> default - filter servers only in the same zone
+* Spring cloud - default LB - ZoneAwareLoadBalancer
+* Rule - default - ZoneAwareRule
+
+Spring Cloud Feign - Declarative Rest Client
+===========================================================================================
+* Alternative to restTemplate, even easier - 
+* Feign declarative rest client - Allows to make rest calls
+* Eliminate unit testing as there is no code(integration test is however necessary)
+How does feign client works - 
+----------------------------------------
+1. Define interfaces for the rest client code -
+2. Annotate interface with Feign annotation - 
+3. Define methods that are to be done as remote calls - with proper return type and parameters(name doesn't matter)
+4. Annotate methods with proper spring MVC annotations
+5. Spring cloud will implement it at runtime - It will scan for all the interfaces and provide implementation code to call REST service 
+   and process response.
+ 
+Feign Example - Add @EnableFeignClients to Application.class
+--------------------------------
+@FeignClient(url = "http://localhost:8080/warehouse")  ------>base url of the server we call or @FeignClient("clientId")
+public Interface InventoryClient(){
+
+@RequestMapping(value = "/inventory" , method = RequestMethod.GET)  ---> RequestMapping says that for getting items, it needs to look at this path 
+List<Item> getItems();
+
+@RequestMapping(value="/inventory/{sku}" method = RequestMethod.POST , consumes = "application/json")
+void update(@PathVariable("sku") String sku, @RequestBody Item item);
+
+}
+
+Feign integrates with Ribbon and Eureka
