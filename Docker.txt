@@ -9,4 +9,56 @@
 	An hypervisor layer is introduced between physical HW and Guest OS
 
 * Now companies are installing VM's on cloud like AWS 
+================================================================================
+Content should be pasted here 
+=================================================================================
+* Useful docker commands 
+	- >> docker ps -a ---> shows all docker containers that were running on that system
+	- >> docker run --rm ---> removes container when execution stops
+	- >> docker run -d --> run in detached mode(as a background process)
+	- >> docker run --name --> give custome name to the container
+	- >> docker inspect <container-id> --> displayes some low-level info regardding container
+	- >> docker logs container-id
 
+* Images are layered 
+	- Images are stacked on top of each other.
+	- Base Image is usually Read only File sytsem
+	- Top layer is Read/Write layer, Any change to the container is written to this layer,
+	- When container is deleted, this is also deleted, but underlying image remains same.
+	- Multiple containers can share access to the same images
+
+2 ways of building docker image
+=======================================================
+1. Docker commit - Download an image, run a container - make changes to the container and 
+                  save that container as a new image. ex - download debian image and install git to it, 
+				  make debian+git as a new image
+				- >> docker commit <container-id> <repo_name>:<tag>
+2. Write Docker File to create a docker image
+    - Each instruction will create a new image layer( named as Dockerfile)
+	- FROM debian:jessie (From the base image, here argument debian:jessie is the base image)
+	  RUN apt-get update (Any linux command here)
+	  RUN apt-get install -y git
+	  RUN apt-get install -y vim
+    - >> docker build -t <repositry> <context path - to copy files required for the image>
+	- While running Dockerfile, docker daemon creates a container for instruction to be run, runs that instruction 
+	  and created an image layer out of it and then deletes the container(containers are ephemeral)
+	- Use containers to create image layer, commit an intermediate container as an image amd then delete image
+	- docker daemon picks the image committed by previous instruction to create a container to run current instruction
+3. Reduce number of run commands, to reduce number of image layers
+4. In multi run commands, sort the arguments in alpanumeric order like, 
+5. CMD - what command to run when the container starts-up
+       - CMD ["echo" , "hello-world"]
+6. Docker cache - If the instruction to be run is same as the previoud instruction, docker re-uses image
+7. Aggressive caching is a problem - 
+	- Let's suppose a  >> RUN apt-get update command is there, if it has to be used from caching at a later date,
+	  it's not run again, can get an outdated version, combine that instruction with other instruction that might change , like update + install
+	- Use cache invalidate flag - >> docker build -t <repositry> <context-path> --no-cache=true
+8. COPY - copies file from context path to container file system
+9. ADD - can download files from internet and unzip compressed files on own.
+
+Push Images to docker hub - 
+===========================================================
+1. DockerHub provides free repo for public images
+2. >> docker tag <image-id> lakshmitutorial/debian:<version>
+3. >> docker login --username=
+4. >> docker push <repo-name>/<image-name>:<tag>
