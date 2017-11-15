@@ -1,0 +1,255 @@
+Shell scripting - 
+* Mainly needed for automation certain tasks - like reading a file, searcing for a string in a file etc.
+* Other alternative - Doing things manually - this effort can't be reused.
+* Script can be reused again - one time effort
+* List of scripting langauges - 
+ 	Shell scripting - UNIX Shell scripting
+	Awk and SED
+ 	TCL
+	PERL - commonly used
+	PYTHON
+* Unix is a layered architecture - many layers
+	1. Hardware
+	2. Kernel 
+	3. Utilities 
+	4. Shell - software that acts as a command interpreter - it acts interface between user and kernel.
+	
+* bash - born again shell - is a command interpreter.
+* Kernel - Its a collection of software(subsystems) which acts as interface between user and hardware, kernel controls, Manage, Synchronize
+* Sub systems in Kernel - Is like a manager
+	1. FMS - File Management
+	2. PMS - Process managament
+	3. MMS - Memory Management
+	4. IOS - I/O system
+	5. IPC - Interprocess communication 
+* End user - works through Shell
+* Sub systems - System -level
+* Kernel - Kernel programming
+* UNIX - General name - there are different flavours like - linux is a flavour of unix
+	Linux
+	Solaris
+	Aix
+	BSD
+	HP-Linux
+* Windows - Generic name - flavours are win xp, win 7, win 10 etc.
+* Unix Shell scripting - more inclined towards Linux
+* Different shells - sh - Bourne shell
+	               csh - C Shell
+	               ksh - Korn Shell	
+	               bash - Bourne Again Shell - Default shell in linux flavour of Unix - Can    pass any number of command line arguments.
+* Vim first.sh
+* To run - >>bash first.sh (>>bash_name script_name.sh , ksh in case of Ksh shell)
+*  In unix 3 domains - permissions related
+	Owner  	  Group 	  Others
+	Harisha        group1  
+	  rwx             rwx
+* 3 permissions - 
+	Read(r) - 2^2
+	Write(w)  - 2^1
+	Execute(e) - 2^0
+* chmod 744 first.sh
+* Initialization/Configuration files - 
+	1. System configuration - Shell customization etc. 1 - /etc/profile
+	2. User configuration - ~/.bash_profile
+	3. Script file - ~/.bashrc
+	
+* In UNIX system config related things are stored in /etc directory ex., /etc/profile - system profile
+* .profile - "." is used to hide files
+* /etc/bin - all executable files
+* /etc/tmp - for sharing files
+
+Shell variables - 
+	1. Local variables - which is used to write logic
+		Ex., x=10, name="wipro"
+	2. Global/Environmental variable - specific to a shell
+		PWD, HOME
+	3. Built-in variables - specific to scripting language
+		$1, $2, $$, $@
+Sub-shell - A shell inside a shell , inherits all env vars from parent shell
+* Login shell - The bash we get when we login into UNIX os,
+* >>bash & - creates a child shell and control is in parent shell
+* >>bash - creates a child shell and control also in child shell
+* ` symbol is used to run system commands inside shell script - Its not a single quote - escape key.
+* File Name Substitution - 
+* Wild characters - *, ? etc
+* ls -l a* - all files starting with a
+* ls - l a? -all files starting with a followed by only one letter
+* ls -l a[abc] - all files starting with a and ending with either a,b,c - the contents of [abc]
+* Command Substitution - 
+	>>echo $(date)
+	>>echo `date`
+* vi editor commands - 
+	:%s/PatternMatching/PatternReplace - search and replace ---> replaces only first occurence of a pattern in a line
+ 	:%s/PatternMatch/PatternReplace/g - replace all occurences	
+	:%s/PatternMatch/PatternReplace/
+	Navigation Commands :
+	On 1st line go to end -> $
+		1st line to 10th lvln$ine -> :10
+		2w - go to 2nd word on line 
+		b - one word back
+		2b - two words back
+* #! /bin/bash - first line of the script, tells that the script must be run using bash shell
+* >>source script1.sh - executes the script in current shell(login shell usually) - doesn't create        any child shells.
+* >>bash script.sh - it creates a child shell and executes this script
+* Command Line argument - 
+	sh -> bourne shell -> $1-$9 - only 9 arguments- limitation
+	bash -> bourne again shell -> 
+	$0 - will print the name of the script 
+	>>bash commandlines.sh 10 20 30 40 - $0 will print commandlines.sh
+* shift n; - shifts command line args by n positions to left
+* $* - entire command line args as one single string
+* $@ - each string is seperate command line arg
+---------------------------------------------------------------
+* Arithmetic Operations
+----------------------------------------------------------------
++,-,*,/ operators are understood by bash shell
+we use "expr" command - use 2 back ticks ``
+1. number_1 = `expr $x + $y` - space between the two operands is mandatory
+2. number_2 = `expr $x \* $y` - \ here is escape character
+* Arithmetic substitution - $((EXPRESSION)) - ex., $((10*20)) $((10+20))\
+
+* Generating conditions - use "test" command - special chars are there for conditions
+	>>test  $a -eq $b 	or    >>[$a -eq $b]    (In general >>test expression)
+	>> If test $a -eq $b or If [$a -eq $b]
+* Numerical comparison operators - 
+	-eq , -ne , -lt , -le , -gt , -ge
+*  if [$a -eq $b] then   -------------------------> if only ends with fi
+	echo "they are equal"
+    else 
+	echo "They are not equal"
+fi
+* In UNIX OS each and everything as directory
+	File --> normal file
+	Directory - Is also a File
+	Softlink - is also a File
+	Blocked devices -Ex., Harddisks, Transfers the data block by block - page, 1 block 	can be one  page,1 page 512 bytes
+	Character devices - transfer character by character -> ex., keyboard, console
+	>>ls -l ---> Normal file -> -
+		  Soft link -> d (first char in ls -l command result)
+		  Blocked devices -> b
+		  Character devices -> c
+		   Sockets, IPC - | 
+* File comparison operators - 
+* Logical operators --> -a (logical AND), -o(logical OR), !(logical NOT) 
+	Ex./ - if[(con1) -a (con2)]
+* if cond1
+   then
+	commands 
+    elif cond2
+    then 
+	commands
+     else
+	commands
+* The case statement - 
+	case cond/value in 
+	pattern)
+	    command
+	    command1;;
+	pattern2)
+	     command
+	     command1;;
+   	*) echo invalid;; ----> this is the default case
+                  esac ----> case should end with esac
+* Use read command to read inputs from user - Example
+	echo "two numbers"
+ 	read a;
+	read b;
+	#Opcode is 1 for addition and 2 for subtraction
+	echo "Enter opcode";
+
+	read opcode;
+
+	case opcode in
+	1) sum1=`expr $a + $b`
+        	echo sum1;;
+	2) diff1=`expr $a - $b`
+                  echo diff1;;
+	*)echo "Enter valid option 1 or 2 !!!";;
+	 esac
+* Loops - 
+------------------------------------------------------------------------------------------
+1. WHILE LOOP - syntax
+*  while test condition or while [condition]
+    do
+	commands;
+     done
+2. UNTIL LOOP - syntax
+* If condition is true donot execute the loop - complementary to while loop
+	until condition
+	do
+		commands
+	done
+3. FOR LOOP - '\' is escape char like \*
+	for variable in list 
+	do 
+		commands
+	done
+4. C type FOR LOOP - 
+	for((exp1 ; exp2 ; exp3))
+	do
+		commands
+	done
+
+PROCESS MANAGEMENT -
+------------------------------------------- 
+* Program - Set of instructions written to do some task. stored on hard dist - secondary storage.
+* Process - usually, program in execution. 
+                   Editor first.c -> write -> save -> hard disk
+* Processor can only execute when programs are in RAM
+	We will bring program from hard disk to RAM. At the time reprs/form of program       will change - called as Process.(program residing in Main Memory).
+* SRAM costly vs DRAM
+* Process States - 
+	1. Waiting for resource
+	2. sleep
+	3. Execution
+	4. Ready state  
+* Memory System - 
+	1. Primary Memory - RAM
+	2. Secondary - Hard disk
+* PID - Process Identification number - Number - Unique
+* How many processes are there in login shell - >>ps - process status
+* Processes - 2 types
+	1. System processes - created by OS/kernel
+	2. User processes - Created by the user
+* Username - Information about users  is stored in a file called /etc/passwd - conf file.
+* Password - type password stored in -> /etc/shadow
+*  >> ps
+     PID         TTY          TIME     CMD
+     31839       pts/4    00:00:00    bash
+     31880       pts/4    00:00:00    ps
+
+* >>tty - prints the terminal name
+* >>top - shows real time status of all processes.
+* Run the Process :
+	1. Foreground -> ls -l (Normal command execution)
+	   ----->process that needs user intervention for completing execution should run in foreground
+	   ----->process that needs less time
+  	   -----> Use >>ps to get status of jobs
+	2. Background -> sleep 100&
+	    -----> Process that doesnt need any user intervention and takes more time
+	    -----> Use >>jobs command - there can be many processes
+* Jobs are processes that run in background.
+* >>sleep 100 & - sleeps for 100ms
+* >>kill -9 PID
+* Ps comand - commonly used switches
+	1. >>ps -e = system processes
+	2. >>ps -a = User process of all the users in System
+	3. >>ps -f = Process Id's of all parent processes.
+	4.>>ps -u <username> = processes of a certain user	
+* Parent-Child --> Every process will have a parent. Parent has an Id called PPID
+* >>useradd <username>
+* >>passwd <password-for-user>
+* >>usermod 
+* >>userdel <username> --> delete the user
+* >>Aliasing for  a long command --- >>alias <alias-name>=<command>
+	Ex., >>alias <alias-name>="long boring command here" or single quotes
+* >>kill -signal PID
+	>>kill -9 353 (9 tells kill to sure kill, should not miss it) 
+	>>Signals 0,1,2 ....16 Signals are reserved for PMS, MMS , 
+* PMS signals --> 9 - sure kill(kill at any cost) - SIGKILL
+	             15 - kill(not always sure) - SIGTERM
+
+ARRAYS
+----------------------------------------------------------------
+a1=(10 20 30)
+echo ${a1[@]}
