@@ -76,6 +76,8 @@ Docker Container Links -
 * Docker creates secure tunnel between the containers using container links, need not expose any n/w ports
 * Docker adds entry into /etc/hosts of recepient container with <source container ip> <name>
 
+####################### https://www.level-up.one/things-watch-working-docker-containers/ ###########################
+
 Docker compose -
 ============================================================
 * Automate docker workflow, linking, configuring containers manually is cumbersome when there are more containers.
