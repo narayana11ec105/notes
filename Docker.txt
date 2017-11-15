@@ -55,10 +55,37 @@ Content should be pasted here
 	- Use cache invalidate flag - >> docker build -t <repositry> <context-path> --no-cache=true
 8. COPY - copies file from context path to container file system
 9. ADD - can download files from internet and unzip compressed files on own.
-
 Push Images to docker hub - 
 ===========================================================
 1. DockerHub provides free repo for public images
-2. >> docker tag <image-id> lakshmitutorial/debian:<version>
+2. >> docker tag <image-id> lakshmitutorial/debian:<version> - ex: sudo docker tag 53a8bc29f028 narayana11ec105/first:1.0 (tag this image with a 
+		docker repositry) 
 3. >> docker login --username=
-4. >> docker push <repo-name>/<image-name>:<tag>
+4. >> docker push <repo-name>/<image-name>:<tag> - ex: sudo docker push narayana11ec105/first:1.0
+
+>> docker-machine ls ----->details about docker VM
+>> docker exec --> runs certain commands inside a container
+   ex - docker exec -it <image-id> bash ----> runs bash inside a container
+   
+Docker Container Links -
+============================================================
+* Communication between two docker container without exposing any network ports
+>> docker run -d --name=redis redis:3.2.0
+	-- alternatively run >> docker ps command to see the name of running container
+>> docker run --link <name of docker container to be linked> app:1.0
+* Docker creates secure tunnel between the containers using container links, need not expose any n/w ports
+* Docker adds entry into /etc/hosts of recepient container with <source container ip> <name>
+
+Docker compose -
+============================================================
+* Automate docker workflow, linking, configuring containers manually is cumbersome when there are more containers.
+* Use docker-compose.yml file to declare all app services and start them at one go
+* compose version>= 2.0 supports container discovery automatically
+* >> docker-compose up (spins up all containers)
+* docker compose stores all config information for managing container lifecycle
+* >> docker-compose ps (to see all docker containers managed by compose)
+  >> docker-compose logs <container-name>
+  >> docker-compose rm (removes all container)
+  >> docker-compose stop (stops all container)
+* Docker-compose doesn't rebuild the image if it's found, even though a change was made in Docker file, force build
+  >> docker-compose build
