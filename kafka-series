@@ -1,2 +1,93 @@
 
-Kafka notes go here
+* There are sources and sinks (If they have to be connected over https , tcp it becomes very tedious and is tighly copuled)
+* Apache Kafka can sit between all the sources and sinks
+* Source need only be worried about pushing data to kafka and that's it
+* Sink can only read data from kafka stream
+
+Kafka Eco-system :
+
+Source    ----------->  Producers 			 ---------> Kafka --------> Consumers  			-------> Target 
+systems   ----------->	uses producer API    ---------> Kafka --------> users consumer API  -------> systems 
+														|  |
+														|  |
+														|  |
+														|  |
+														|  |
+													 Zoo Keeper
+
+* Topics - A stream of data
+        - Similar to tables in database without any restriction
+		- Topic is identified by it's name
+		- Topics are split into partitions
+		- Inside a partition, a message is written in incremental order - offset
+		- Each partition is ordered
+* Offsets are only valid inside a partition
+* Data is only kept for 2 weeks by default
+* Once data is written to a partition, it cannot be changed - immutability --> cannot overwrite a message in Kafka
+* Data is only written to Topic, partition is randomly assigned
+
+==>Brokers - Kafka cluster is composed of multiple servers(Brokers)
+* Broker is identified by ID
+* Connection to one Broker(bootstrap broker) will connect to all the brokers in that cluster
+* Not every broker has every topic, hence you will connect to all brokers
+* Topic Replication Factor (should be > 1 , usually 2-3) - IF one broker is down than other can server data
+	3 is a good idea because if 1 is taken down for maintenance, you still have 2 servers and can tolerate one server breakdown
+	replication factor -> 2 duplicate partions and 2 duplicate topics
+* Leader - at a particular time only one Broker can be the leader for a particular partition, and that partition will only receive and servr data
+	All other brokers just replicate that data - ISR(In sync Replica)\
+
+==> Producers - writes data to kafka
+* They  have to specify the topic name and one broker to connect to and Kafka takes care of routing it to the appropriate broker.
+* Producers can choose to receive acknowledgements 
+	ACKS = 0 , producer doesnt wait for acknowledgement from broker	(possible data loss) -- high performance
+	ACKS = 1 , producer waits for acknowledgement from leader (limited data loss) --
+	ACKS = all , producer waits for acknowledgements from all the brokers (no data loss) -- low performance
+* Producer can choose to send a key --> all the messages with that key will go into the same partition
+
+==> Consumers - consume data from kafka
+* They have to specify the topic name and one broker to connect to, kafka will pull the data from the right broker
+* Data is read in order for each partition
+* Consumer can consume data parallely from different partitions
+
+==> Consumer groups - partitions are divided between consumers to read from 
+	- Group of consumers read from same topic but from exclusive partitions
+	- If there are more consumers than partitions then some will be inactive
+	Consumer offsets - Kafka stores offset at which a consumer was reading and commits that into _consumer_offsets
+					 - when a consumer reads data from kafka and processes, it commits offset
+					 - When a consumer dies, it can start from where it left off
+==> ZooKeeper - manages brokers, keeps a list of them
+			  - helps in performing leader election for partitions
+			  - Kafka can't work without zookeeper
+			  - ZooKeeper has a concept of Leader and Follower
+			  - ZooKeeper works in a cluster of 3,5,7 etc odd qorum of servers
+			  - Kafka cluster talks to only leader, zookeeper does elections
+Consumer Offset commits - 
+* At most once -
+	Offsets are committed as soon as the messages are received, if processing goes wrong that message in not available again
+* At least once - 
+	Offsets are committed after the messages are processed, or else that message is read again - can result in processing of duplicate messages, processing should be idempotent
+	Idempotent - If done more than once shouln't affect the end result , Inserting is not idempotent as 2 inserts would create 2 rows, update is idempotent.
+* Exactly once - 
+
+* Run this command to run kafka from a docker image - 
+[narayana@mindlinux ~]$ sudo docker run --rm -it \
+> -p 2181:2181 -p 3030:3030 -p 8081:8081 \
+> -p 8082:8082 -p 8083:8083 -p 9092:9092 \
+> -e ADV_HOST=127.0.0.1 \
+> landoop/fast-data-dev 
+
+* Start a terminal in kafka using - 
+	>> docker run --rm -it --net=host landoop/fast-data-dev bash ----> here you can run kafka commands
+===> Kafka commands -
+1. >> kafka-topics --zookeeper <string: URL of zookeeper> --create 
+		--> root@fast-data-dev / $ kafka-topics --zookeeper 127.0.0.1:2181 --create --topic first-topic --partitions 3 --replication-factor 1
+    Note - replication factor can't be more than the number of brokers.
+	--describe option to tell about the topic
+2. Publish data to topic - 
+	root@fast-data-dev / $ kafka-console-producer  --broker-list 127.0.0.1:9092 --topic second-topic  (refer UI for brocker list)
+3. Consume data from topic - 
+	--broker-list(in case of producer) and --bootstrap-servers(in case of consumer) are the same 
+[Note - Only time you have to interact with Zookeeper is when creating/modifying/deleting topic , No need for kafka interaction while consuming/producing data]
+* When using consumer group, offset is committed , subsequent --from-beginning won't list the messages from the beginning of topic
+
+
