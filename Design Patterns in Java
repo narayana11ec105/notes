@@ -1,2 +1,54 @@
 Object oriented design in Java 
 --------------------------------------------------------------------------------------
+Overview of software design - 
+* Have a problem statement -
+* Create a plan of action -   
+Class name should be a noun based on Intent of the class.
+
+1. Single responsibility principle (SRP)
+---------------------------------------------------------------------------------
+* Put only the behaviour in the class that is only related - 
+  Like, put the things that only employee does as methods in the class
+* Classes must not have more responsibility, it should not have more than one reason has to change 
+* Seperation of concerns 
+
+DRY - Dont Repeat Yourself - Doesn't have anything other than the sole behaviour/need of the class 
+	ex - Employee class must not have saveToDataBase method.
+	
+* Solid arrow in UML - Inheritance
+* Open arror - Association
+
+
+2. Open Closed Principle 
+-----------------------------------------------------------------------------------
+* Software modules should be open for extension and closed for modification
+* New requirements should cause minimal code changes, shouldnot cause modification in already existing code.
+* Change in modification might cause change in test cases as well
+* Look for object responsibility always while looking for design improvements
+* If instanceOf keywords are present, that's a sign of design improvements,
+* Make employee class as abstract and doctor/nurse extends this - put the actions done by doctor/nurse in their own classes 
+* STRATEGY PATTERN - Enables algorithm to select behaviour at run time, 
+
+3. Dependency Inversion 
+--------------------------------------------------------------------------------------
+Funda - Depend on Abstract classes and interfaces because they change less often than concrete classes, In other words dependency should be on code that changes less often
+* Real world behaves that way
+* Poor design - When higher level modules depend on lower level ones susceptible to change
+* Tight coupling - a problem
+* High level modules should not depend on lowlevel modules
+* Details should depend on abstractions , all modules should depend on abstraction 
+* Abstract / implementations donot change, it's a contract and doesn't change very often
+* Dependency can be on other classes as well, given that don't change a lot 
+
+* Cohesion - group classes related to a feature in a single package -
+* Protected scope - visibe for subclasses and classes inside the same package 
+
+4. Liskov Substitution Principle (LSP)
+----------------------------------------------------------------------------------------
+Funda - Subtypes must be substituable for their base types
+* Inheritance - IS-A relation , doctor is an employee - Nurse and Doctor was substituable by Employee class 
+* A method call in the subclass extended from a base class is illegal - Violation of Liskov princple - assign this special behaviour to an interface
+
+5. Interface Segregation Principle (ISP) 
+----------------------------------------------------------------------------------------
+Funda - All of the above is called as SOLID
