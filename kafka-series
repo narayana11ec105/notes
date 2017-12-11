@@ -90,5 +90,5 @@ Consumer Offset commits -
 [Note - Only time you have to interact with Zookeeper is when creating/modifying/deleting topic , No need for kafka interaction while consuming/producing data]
 * When using consumer group, offset is committed , subsequent --from-beginning won't list the messages from the beginning of topic
 * Done - Kafka topic and Producer -
-* Samples git URL - 
+* Samples git URL - https://github.com/apache/kafka/tree/trunk/examples/src/main/java/kafka/examples
 
