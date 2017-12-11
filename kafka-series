@@ -94,6 +94,23 @@ Consumer Offset commits -
 ========================================================================================================================================
 Streams API -
 --------------------------------------------------------
-* Easy data processing and transformation library , Fraud detection , monitoring + Alerting - just a plain app and need not run in clusters
-* 
+* Easy data processing and transformation library , Fraud detection , monitoring + Alerting - just a plain app and need not run in clusters - scaling is
+	just by adding more Java processes - no reconfiguration
+* Processes one record at a time - no batching
+* kafka stream apps - from Kafka to Kafka. Write data from source topic to sink topic 
+* Exactly-once capabilities.
+* Streams app always run, each update is printed to kafka - batch only prints the final output  - per data streaming
+* Stream processing creates internal topics like changelog and repartition, 
+* Stream - A sequence of immutable data records, data cannot change 
+* Stream processor - Is a node in the processor topology(graph). It transforms incoming streams, record by record - may create a new stream
+* Topology - A graph of nodes/processors connected by streams
+* Source processor - takes data directly from a kafka topic and creates a stream out of it, doesnt transfom the data- No predecssors in topology
+* Sink processor - Doesn't have children, sends the stream directly to a kafka topic
+Note - Always set "application.id" in the stream app properties 
+	Behind scenes this will be - consumer { group.id = application.id }  --> may cause kafka tot think that this is a new consumer app and re-processes data
+	Default client.id prefix
+	Prefix to internal changelog topics 
+* Set default.[key|value].serde --> for serialization and De-serialization  
+* Java 8 - Lambda functions 
+	- 
 
