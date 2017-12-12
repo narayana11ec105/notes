@@ -112,5 +112,5 @@ Note - Always set "application.id" in the stream app properties
 	Prefix to internal changelog topics 
 * Set default.[key|value].serde --> for serialization and De-serialization  
 * Java 8 - Lambda functions 
-	- 
+	- Used in case of implementing interfaces with one method
 
