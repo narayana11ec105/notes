@@ -114,3 +114,86 @@ Note - Always set "application.id" in the stream app properties
 * Java 8 - Lambda functions 
 	- Used in case of implementing interfaces with one method
 
+Word Count - Streams App Topology
+-----------------------------------------------------
+Kafka streams - data in the form of <key, value>
+1. Stream - create a stream from kafka topic  <null, "Kafka Kafka Streams">
+2. MapValues - convert the calue into lower case - <null, "Kafka Kafka Streams"> 
+3. FlatMapValues - split the value into words <null, "kafka"> <null, "kafka"> <null, "streams">
+4. SelectKey - apply a key instead of a null key - ex, key = value <"kafka","kafka"> <"kafka","kafka"> <"streams","streams">
+5. GroupByKey - groups by keys - (<"kafka","kafka"> <"kafka","kafka">) (<"streams","streams">)
+6. Count - occurences in each group - <"kafka" , 2> <"kafka" , 1>
+7. To - use to for writing data back to kafka
+   KafkaStreams streams = new KafkaStreams(builder, props) --> create a streams app
+* Topology - represents all the streams and processes in the streams App
+* Close the streams application gracefully (to do shutdown activities) - addShutdownHook to runtime  
+
+ KTable<String, Long> wordCounts = wordCountStream.mapValues(value -> value.toLowerCase())
+				.flatMapValues(value -> Arrays.asList(value.split(" ")))
+				.selectKey((oldKey, value) -> value)
+				.groupByKey().count("counts");
+				
+* Word Count Internal topics - 2 types (used to save/restore state)
+	- Repartitioning topics - In case of transforming keys of the stream , repartitioning will happen
+	- Changelog - kafka will save compacted data after aggregation in these topics 
+* Fat Jar - code + all external dependencies inside that Jar
+* Scaling streams app , run as many instances as the number of partitions without changing the application.id - 
+	it will all consume the same topic but different partitions - distributes tasks dynamically - rebalancing happens when there is a change in instances
+
+	Kafka streams example - https://docs.confluent.io/current/installation/docker/docs/tutorials/kafka-streams-examples.html 
+	
+KStreams and KTables -
+---------------------------------------------------
+KStreams - All inserts, Infinite, unbounded data streams - continously reads messages from a topic , appends the message to stream even in case of key repetitions
+Ktable - All upserts on null values , non null values are deleted automatically , updates the value in case the same key comes again
+
+Stateless - Result of a transformation depends only on the datapoint that is processed , ex - multiply by 2  
+Stateful - Result of a transformation depends on the current value and also the past(External information) - ex count of a word
+
+MapValues - Used in case where only value needs to be affected , doesn't trigger a repartition (KStreams + KTables)
+Map - Both keys and values are affected , triggers repartitioning , Only Kstreams
+
+Filter - Takes one record and produces 0 or one record, doesn't change keys / values | filterNot - inverse of filter
+
+FlatMapValues - takes one record , creates 0, 1 or more records. Doesn't change key - no repartition
+			  - For example , ("alice", "alice is nice") ---> flatMapValues --> ("alice", "alice") ("alice", "is") ("alice", "nice")
+FlatMap - Changes keys, triggers repartition
+
+KStream branch - Create more branches based on some conditions - evaluates all conditions in order
+		KStream<String, String>[] branches = stream.branch(
+			(key, value) -> value > 100,
+			(key, value) -> value > 10,
+			(key, value) -> value > 1,
+		);
+		
+SelectKey - Assigns a new key to the record , key changed - hence repartitioning happens - seperate this step out to know when repartitioning happens
+
+KTable - builder.table( ) --> deletes null values, inserts only non null values 
+``
+GlobalKTable = builder.globalTable(key serdes, value serdes , topic-name)
+
+Writing back to kafka - If you write a KTable back to kafka, think about creating a log compacted topic - reduces recovery time 
+	stream.to(topicname with serdes)
+	Kstream newStream = stream.through (topic name with serdes) --> Write to a topic and get a stream from it 
+
+Repartition - kafka has to write data back to kafka for re-shuffling and read, incurs network cost - performance reduces 
+			- Needed when using groupByKey 
+			
+Log - Compaction 
+-----------------------------------------------------
+LogCleaupPolicy : compact --> Keep only the last updated key in the log
+	- For all updated keys - older value record is deleted 
+	- hold only recent updated data 
+	- Offsets donot change when message is deleted , it's skipped 
+
+KStreams and KTable duality -
+Stream as a table - Stream can be a changelog of a table, each record can be state change of a table 
+Table as a stream - Table can be considered as a snapshot , at a time with the latest value for each key 
+
+KTable to Kstream --> to keep a changelog(all updates , deletes, insertions etc) of all the changes to the KTable 
+		table.toStream();
+KStream to KTable --> 1. groupByKey chained by aggregation
+					  2. write to kafka in an intermediate topic and read as a stream from that intermediate topic
+
+					 
+	
