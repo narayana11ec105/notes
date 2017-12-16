@@ -9,9 +9,27 @@
 	An hypervisor layer is introduced between physical HW and Guest OS
 
 * Now companies are installing VM's on cloud like AWS 
-================================================================================
-Content should be pasted here 
-=================================================================================
+* Container based virtualization - Containers are portable encapsulation of an environment in which apps are run
+	- Provides run-time isolation 
+	- Suppose one App requires JRE8 and other requires JRE7, runnning both on single OS is hard, containers solve this problem
+	- Containers are light-weight
+	- Containers contain all the app dependencies can run independently
+	- Unlike Hypervisors container shame same kernel, which makes it light-weight
+* Docker daemon/server is somethings that maintains containers , docker client is for user to interact with docker daemons
+* Dcoker container is a running instance of Docker image
+* Docker daemons receive commands from client using CLI or rest API's
+* Docker is build on linux kernel, so installing it on windows/mac will nativley run LInux VM
+* Images are read only templates used to create containers.
+  - Images are created with the docker build command, either by us or by other docker	users.	
+  - Images	are	composed of layers of other images - to prevent from Dcoker images getting bigger.	
+  - Images	are	stored in a Docker registry.	
+* If image is a class, then container is a run time object of an image.
+* Registry is where we store our images - you can host your own image or use public docker registry
+* Inside a registry we store images in repositries - Each repo contains images with same name but diff tags(usually version) - diff versions of same image
+* >> docker run reposirty : tag
+* >> docker run -i -t respo : tag 
+   -i --> docker run in interactive mode\
+   
 * Useful docker commands 
 	- >> docker ps -a ---> shows all docker containers that were running on that system
 	- >> docker run --rm ---> removes container when execution stops
