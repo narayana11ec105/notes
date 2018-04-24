@@ -13,4 +13,10 @@ Commands
  >> git add prepares files for commit, it's called staging area.
  >> rm file.txt ---> git add -u -----> git commit --> removes file from repo
  >> mv file1.txt file2.txt ---> git add -A ----> renames file after commit
+ >> git reset --hard ----> change the work copy to that of the head
+ >> git checkout file-name ----> revert the changes that aren;'t necessary, reverts to the HEAD
+ >> git reset soft --> adds HEAD to the staging area
+ >> git reset --hard HEAD~1
+ >> Git ignore - ignoring files like logs etc
+     Add a file called .gitgnore to the root directoty and inside list all the files to ignore.
  
