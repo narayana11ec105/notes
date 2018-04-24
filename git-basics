@@ -1,0 +1,11 @@
+GIT Notes - 
+----------------------------
+Distributed Version Control System - Can create local repos, commit changes into local repo. Can merge/pull the changes into the master by
+raising a pull request.
+
+Commands
+ >> git add ----> create a local git repo
+ >> git status -----> Status
+ >> git commit -----> submit changes to the file in local repositry
+ >> git log  ---> Submit / change history
+ 
