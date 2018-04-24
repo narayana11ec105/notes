@@ -19,4 +19,9 @@ Commands
  >> git reset --hard HEAD~1
  >> Git ignore - ignoring files like logs etc
      Add a file called .gitgnore to the root directoty and inside list all the files to ignore.
- 
+ >> gii clone <clone url ending with .git>
+ >> git show HEAD
+ >> git remote -v 
+ >> git remote add origin https://github.com/LakshmiNarayana/myfirst.git
+ >> git fetch / git fetch origin
+ >> 
