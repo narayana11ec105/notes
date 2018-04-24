@@ -8,4 +8,9 @@ Commands
  >> git status -----> Status
  >> git commit -----> submit changes to the file in local repositry
  >> git log  ---> Submit / change history
+ >> git diff HEAD~1..HEAD --> HEAD is the latest commit to the repositry. 
+      ~n n versions back from the HEAD
+ >> git add prepares files for commit, it's called staging area.
+ >> rm file.txt ---> git add -u -----> git commit --> removes file from repo
+ >> mv file1.txt file2.txt ---> git add -A ----> renames file after commit
  
