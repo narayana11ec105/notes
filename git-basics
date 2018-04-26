@@ -24,4 +24,12 @@ Commands
  >> git remote -v 
  >> git remote add origin https://github.com/LakshmiNarayana/myfirst.git
  >> git fetch / git fetch origin
+ >> git clone clone-url
+ >> git show HEAD --> view latest commit
+ >> git branch
+ >> git branch -r
+ >> git tag
+ >> git merge <from-origin> <into-localcopy>
+ >> git pull -> fetch and merge code from a remote branch into local branch, like p4 sync
+ >> git pull --set-upstream local remote
  >> 
