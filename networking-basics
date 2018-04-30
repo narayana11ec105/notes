@@ -1,3 +1,28 @@
+
+1. TCP/IP
+Is technically a Protcol Suite
+IP Routes Traffic
+Layer 3 OSI Model Network
+Routable Networks (sub networks)
+TCP controls transmission between connected systems
+Layer 4 OSI Model  Transport
+Windowing is the process of sending data from one computer to another in TCP/IP version 4
+2. How TCP/IP Works
+IP Addresses -- Every device on a TCP/IP network needs an individual IP Address
+DNS (Domain Name Service/Server) resolves Domain names into IP Addreses
+DHCP (Dynamic Host Control Protcol) Servers automatically assign IP information to clients for a specific time period (Lease).  Clients try to renew leases at 50% expiration point.
+Default Gateway (Router) connects networks.  If an IP Address cannot be found on the local network the computer tries to use the Default Gateway to find the target.
+Subnets and Subnet Masking -- Subnets are individual networks.  Subnet Masks divide IP Addresses in Subnet Number and Host Number
+What the Number Mean
+IP Addresses and Subnet Masks are made of 4 Octets of Bits
+128-64-32-16-8-4-2-1
+Subnet Masking
+IP Addresses contain the Subnet Number and Host Number.  The Subnet Mask tells you where the subnet number ends and the host number begins.
+Classful Networks A, B, C,D,E  Gone now use CIDR
+The Highest Address in a Subnet Range is the Broadcast address
+To determine the number of subnets (n is the number of bits used)= 2n
+To determine number of Hosts = 2n -2
+
 Routable protocol - 
 Protocols which allows a network to be divided into sub-networks. All subnetwork talk to each other via a router.'
 IP - OSI layer 3 - network layer
@@ -22,5 +47,9 @@ Dynamic IP - Computer gets the IP, subnet mask, default gateway etc from the DHC
 DHCP - can give out IP's based on a scope(10.100.4.90 - 10.100.4.190), keeps track of all the IP's given out, gives default gateway,
 subnet mask etc to the requesting comp on the network. This info is given with a LEASE time (how long can the machine keep the config)
 Halfway through the least time mark, computer makes another call to DHCP to renew the configs.
+
+NAT - Network Address Translation
+Earlier notion - every device on the internet must have an IP unique to the world
+
 
 
