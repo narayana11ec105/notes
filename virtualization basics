@@ -1,0 +1,5 @@
+Virtualization - separating OS from the underlyiung hardware.
+Install a hypervisor layer on the HW and install instances of OS on top of it. OS is tied to hypervisor
+Move the OS from one HW to another HW
+Type 1 Hypervisors - Bare Metal
+Type 2 Hypervisors - Hosted , installed as an app in an OS and then instances of VM's on it.
