@@ -36,8 +36,8 @@ Windowing - client sends data to server in the form of packets, smaller chunks o
 everything successfully. Resets / resorts back to smallest number of packets when the server fails to receive some packets.
 
 Every device on the internet has to have an 
-IP
-Subnet Mask
+IP - networking device idntifier
+Subnet Mask - to identify the subnet
 Default gateway - router for the subnet mask, Enables a computer to talk to other devices that are on the internet.
 DNS - domain name server - domain names to IP address mapping
 DHCP - Dynamic Host Control Protocol - 
@@ -49,7 +49,27 @@ subnet mask etc to the requesting comp on the network. This info is given with a
 Halfway through the least time mark, computer makes another call to DHCP to renew the configs.
 
 NAT - Network Address Translation
-Earlier notion - every device on the internet must have an IP unique to the world
+Earlier notion - every device on the internet must have an IP unique to the world - not enough IP's
+with NAT - every device need not have an absolute unique IP
+Routers / default gateway should have a dedicated IP. All computers inside a N/W can re-use IPs.
+Internet sees the IP of the default gateway, NAT inside the router translates external IP into the actual IP.
+
+Subnet tells what part of the IP is network identifier and what part is device identifier.
+
+Subnets -
+class A - 255.0.0.0
+class B - 255.255.0.0
+class C - 255.255.255.0
+
+2 devices connected to the same switch in any network, but on different subnets will not be able to talk to each other. You need 
+a router for talking
+
+
+
+
+
+
+
 
 
 
