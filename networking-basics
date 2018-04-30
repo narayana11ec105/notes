@@ -1,0 +1,26 @@
+Routable protocol - 
+Protocols which allows a network to be divided into sub-networks. All subnetwork talk to each other via a router.'
+IP - OSI layer 3 - network layer
+TCP - OSI layer 4 - transport layer
+
+Non-routable -
+Every computer is connected to every other computer, complete mess
+
+IP is for locating computers on the internet, TCP helps in communication between them.
+Windowing - client sends data to server in the form of packets, smaller chunks of data. It starts with smaller number of packets and increases the number of packets as the server receives
+everything successfully. Resets / resorts back to smallest number of packets when the server fails to receive some packets.
+
+Every device on the internet has to have an 
+IP
+Subnet Mask
+Default gateway - router for the subnet mask, Enables a computer to talk to other devices that are on the internet.
+DNS - domain name server - domain names to IP address mapping
+DHCP - Dynamic Host Control Protocol - 
+
+static IP - assign IP, DNS, default gateway manually
+Dynamic IP - Computer gets the IP, subnet mask, default gateway etc from the DHCP when it connects to the network. 
+DHCP - can give out IP's based on a scope(10.100.4.90 - 10.100.4.190), keeps track of all the IP's given out, gives default gateway,
+subnet mask etc to the requesting comp on the network. This info is given with a LEASE time (how long can the machine keep the config)
+Halfway through the least time mark, computer makes another call to DHCP to renew the configs.
+
+
