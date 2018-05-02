@@ -64,11 +64,38 @@ class C - 255.255.255.0
 2 devices connected to the same switch in any network, but on different subnets will not be able to talk to each other. You need 
 a router for talking
 
+Hub - predecessor of switch, It repeats signal received from one of the ports to the other ports, Lot of collisions - braodcast storm - a complete mess.
 
+Switch - 
+ * Every single networking device created out there has a MAC address (printer, computers, switches etc)
+ * Switches learn where each computer is connected to (which) based on broadcasting packest initially to all the comp, and then sends
+   packets only to the intended recepient. Multiple computers can talk to each other simultaneously now.
+ * Managed switches - configurable 
+ * Unmanaged switches - Not configurable, everything is automatic
+ 
+half duplex - Can only talk / listen at a moment
+Full duplex - Can talk and listen at the same time
 
+Connect different switches using the truck port only - fiber optic trunk port - used to connect switch to the internet
 
+VLAN - Virtual LAN - Allows to separate different computers / ports on the switch into separate networks such that they are not a
+able to talk to each other 
 
+Different VLAN's can only talk to each other using routers' and nothing else.
+Packets - lowest unit of data
 
+QOS - Quality of Service - Used to prioritize packets
+VOIP packets - higher priority packets than the file download.
+
+Servers - 
+* provide services to other computers on the network
+* Server OS diff from Desktop OS
+* Server - made to be turned on always, more robust, supports more concurrency
+* Server softwares are more expensive than desktop os s/w
+
+Intel Xeon processor - server H/W - built for servers
+
+ECC RAM - Error Correcting Code - 
 
 
 
