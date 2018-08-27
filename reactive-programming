@@ -5,4 +5,12 @@ Architecture that supports -
   * resilience -  Error handling
   * Responsive- less response time to user
   * event-driven
+  
+Iterator - pull data when hasNext
+Observable - Keep pushing data to user, he cares or not.
+
+Observable pattern - 
+Error channel --> Send errors in error channel, unlike exceptions and errors.
+Data channel --> send data stream here, until complete signal/ error occurs
+Complete channel --> Signal for complete comes.
 
