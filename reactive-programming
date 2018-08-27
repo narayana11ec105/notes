@@ -1,2 +1,8 @@
 Reactive programming basics
 --------------------------------------------------------------------------------------
+Architecture that supports - 
+  * Scalable
+  * resilience -  Error handling
+  * Responsive- less response time to user
+  * event-driven
+
