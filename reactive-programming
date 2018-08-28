@@ -14,3 +14,9 @@ Error channel --> Send errors in error channel, unlike exceptions and errors.
 Data channel --> send data stream here, until complete signal/ error occurs
 Complete channel --> Signal for complete comes.
 
+Observable sends data in these 3 channels.
+
+Stream Java 8 v/s stream in observavle 
+ * It's an iterator that sends data, no error channel, data channel etc.
+ * Observable - data, complete, error channels
+Reactive says - take exception and push it as an error in error channel.
