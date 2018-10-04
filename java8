@@ -1,0 +1,20 @@
+* Method has - 
+name, parameter (important) body, return type.
+
+* Lambdas only have method body and params.
+* Java is known for backward compatibility.
+* Single abstract method interfaces can be used as lambdas.
+* By converting all lambdas to anonymous functions, class files will increase. java doesn't convert lambdas to anonymous inner classes
+* javap - disassembles a java class file.
+
+* Invokedynamic - 
+
+* External iterators -
+ for loop and foreach loop - iterations are controlled by the user.
+
+* numbers.forEach()
+* Java 8 has type inference only for lambda expressions
+* list.forEach(value -> System.out.println(value));  ----> list.forEach(System.out::println); :: method reference syntax.
+   used in cases where the function doesn't mess with the data, recieves and passed data.
+* 
+
