@@ -23,5 +23,21 @@ name, parameter (important) body, return type.
 * (e -> e.toString) ---> (String::toString()),You know that e is a String, In the case the argument is the target on which the method is called. This syntax is similar to the 
 static method reference. 
 * Limitations of method references - Won't work when there are two methods potential to be replaced. 
-* Function composition - series of functions - pipeline - like stream -> filter -> map -> reduce. ll
+* Function composition - series of functions - pipeline - like stream -> filter -> map -> reduce. 
+* Parallel stream - create threads for reach record, uses lot of resources to get the answer faster. good to use in computation intensive.
+* Stream - doesn't have data, nonmutable pipeline(function composition). It's a sequence of objects. Stream gets data from collections like arraylist, maps etc
+* Stream operations
+  FILTER - Let some elements thorugh and block some based on a condition, Stream<T> takes Predicate<T>
+  MAP - transforms values -- number of o/p == number of i/p, double the numbers etc.
+  REDUCE - take an initial value, list.stream().reduce(1, (carry, e) -> e * carry). Takes Stream<T>, second parameter is of type BiFunction<R,T,R> to produce a result of R, reduce may transform a stream into a single element.
+  SUM - sum is also a reduce operation
+  COLLECT - collect is also a reduce operation. toMap(lambda to odetermine key, lambda to determine value)
+  Lazy evaluation - triggered only when terminal operation is triggered. 
+   * take one element from the stream, apply the entire sequence of fucntions on it. Then move to next element. Dont apply first function to entire list, then second function and so on.
+  
+  
+  Shared mutability is devil's work. avoid it.
+  
+  
+  
 
