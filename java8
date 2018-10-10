@@ -16,5 +16,12 @@ name, parameter (important) body, return type.
 * Java 8 has type inference only for lambda expressions
 * list.forEach(value -> System.out.println(value));  ----> list.forEach(System.out::println); :: method reference syntax.
    used in cases where the function doesn't mess with the data, recieves and passed data.
-* 
+* Put the logic in a function and call that function in the lambdas. Don't put logic in the lambdas.
+* Avoid large lambda function.
+* Method references - used in cases where a method receives a parameter and just passes it ot the next caller.
+  both static and no static methods can have static references. 
+* (e -> e.toString) ---> (String::toString()),You know that e is a String, In the case the argument is the target on which the method is called. This syntax is similar to the 
+static method reference. 
+* Limitations of method references - Won't work when there are two methods potential to be replaced. 
+* Function composition - series of functions - pipeline - like stream -> filter -> map -> reduce. ll
 
