@@ -34,7 +34,7 @@ static method reference.
   COLLECT - collect is also a reduce operation. toMap(lambda to odetermine key, lambda to determine value)
   Lazy evaluation - triggered only when terminal operation is triggered. 
    * take one element from the stream, apply the entire sequence of fucntions on it. Then move to next element. Dont apply first function to entire list, then second function and so on.
-  
+   * Go through the function composition and anything that returns stream from stream is lazy, anything that returns non-stream from stream is eager.
   
   Shared mutability is devil's work. avoid it.
   
