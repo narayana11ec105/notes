@@ -1,0 +1,23 @@
+- Java supported imperative style of programming and OOP.
+- Due to multicore processor, a multi threaded program is really a multi threaded program, threads run in parallel actually
+- Shared mutability is very prone
+- non-determinism = parallel processing + mutable state
+- Structured programming - statement after statement, neatly organised, good entry point, good exit point
+- Assignment less - assignments actually happen at the lower layers of code, we dont do it
+- goto - gotos can't be used by programmers, but is used under the hood
+- Immutable state - will not blindly copy state, smart copy
+- Normal style - pass objects to function, create objects in function, return objects from function
+- Higher order function - pass functions to function, create function in function, return functions from function
+- Functions should not have any side effects - pure functions - doesnot change any data, does not depend on anything that changes, why?
+- Purely functional -> Higher order function + pure immutability
+- Functional style - Higher order function + mutabalitiy
+- Function - has a nanme, body, parameter list, return type
+- return types are inferred based on the context
+- lambda instead of anonymous inner class/anonymous function
+- pass function as a parameter
+- numbers.forEach is polymorphic, implementations is different based on the collection type, for loop is not polymorphic
+- pass a lambda expression wherever single abstract method interface is used
+- Method references
+- Transform data in declarative style
+- lambdas are stateless, closure has immutable state
+
