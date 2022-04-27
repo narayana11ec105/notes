@@ -1,0 +1,37 @@
+Sharing some important observations to be remembered while doing CP:
+
+1. If the input array is sorted then go for
+- Binary search
+- Two pointers method
+
+2. If asked for all permutations/subsets then
+- Backtracking approach
+
+3. If given a tree then go for
+- DFS traversal(Inorder,Preorder,postorder)
+- BFS traversal
+
+4. If given a graph then
+- DFS traversal
+- BFS traversal
+
+5. If given a linked list then
+- slow and fast pointers
+-sentinel node
+
+6. If asked for common strings then
+- Map
+- Trie
+
+7. If recursion cannot be used then go for
+- Stack (Iterative approach)
+
+8. If asked to solve in-place then
+- Swap corresponding values
+- Store one or more different values in the same pointer
+
+9.If asked for maximum/minimum subarray/subset/options then
+- Dynamic programming(Memoization/Top-down)
+
+10. If you are asked to find top/least K elements then go for
+- Heap(Min or Max based on problem)
