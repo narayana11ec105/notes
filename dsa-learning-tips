@@ -1,0 +1,28 @@
+How can anyone, who has an interest to learn DSA and wants to be good at problem solving, LEARNS it:
+(Minimum 5-6 months, 3-4 hours daily for learning)
+
+1. Go through the basics of all the major Data Structures and it's implementation, functionalites and time complexities. Go through 5-10 **questions of each here.
+(Arrays, Stack, Queue, Linked-List, Map, Heap, Tree, Graph)
+
+2. Now, once you are clear with the basic understanding of the Data Structures, now you can start with Basic Algorithms and techniques based on the above Data Structures. Go through 5-10 **questions of each here.
+(Recursion, Searching, Sorting, BFS, DFS etc.)
+
+3. Once you are done with the Basic Algorithms, now you can move to Complex Concepts and Algorithms. Go through 4-5 **questions of each.
+(Greedy, Dynamic Programming, Divide and Conquer, String Algorithms, Graph Algorithms, Tree Algorithms etc)
+
+4. Once you have all the basics done, now move towards pattern based learning. Learn about Maths, Bit Manipulation, Arrays, 2 pointers, Slow fast pointers, Binary Search, Sliding window, prefix sum, Dynamic Programming patterns, 2 heap, bucket sort, Cyclic sort etc. This will take your time as this will make you learn more about finding certain pattern while solving DSA.
+Go through 10-15 **questions from each topic.
+
+5. Once you are done with above topics, you can move to some of the advance DSA topics Trie, Segment Trees, Union Find, Topological Sort. Go through 5-8 **Questions from each topic.
+
+You will be ready to face any question on Leetcode as you have completed all the above topics and must have gone through at least 250 **questions by now.
+(Having the confidence to face a question and to solve a question are two separate things, in my opinion)
+
+
+Data Structures and Algorithms problem solving is similar to Mathematics problem solving; You must know some of the THEOREMS and AXIOMS to solve further problems. Practice can only help you to be better at Maths as well as DSA.
+
+
+This is a general approach one can follow to LEARN. If I missed any point, do let me know in the comments
+
+
+**Questions above mentioned are the general straight forward questions with respect to each topic.
